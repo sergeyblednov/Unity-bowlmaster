@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
-	public float launchSpeed;
+	public Vector3 launchDirection;
 
 	private AudioSource audioSource;
 	private Rigidbody rigidBody;
 
 	void Start () 
 	{
-		audioSource = GetComponent<AudioSource> ();
 		rigidBody = GetComponent<Rigidbody> ();
-		Launch();
+		rigidBody.useGravity = false;
+//		Launch(launchDirection);
 	}
 
-	public void Launch ()
+	public void Launch (Vector3 velocity)
 	{
-		rigidBody.velocity  = new Vector3 (0, 0, launchSpeed);
+		rigidBody.useGravity = true;
+		rigidBody.velocity  = velocity;
+
+		audioSource = GetComponent<AudioSource> ();
 		audioSource.Play ();
 	}
 }
