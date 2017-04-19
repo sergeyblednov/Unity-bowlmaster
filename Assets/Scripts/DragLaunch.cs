@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 [RequireComponent (typeof(Ball))]
 public class DragLaunch : MonoBehaviour {
 
+	private Floor floor;
 	private Ball ball;
 	private float startTime;
 	private float endTime;
@@ -15,6 +16,8 @@ public class DragLaunch : MonoBehaviour {
 	void Start () 
 	{
 		ball = GetComponent<Ball> ();
+		floor = GameObject.FindObjectOfType<Floor> () ;
+		print (floor.transform.localScale);
 	}
 
 	public void DragStart()
@@ -34,6 +37,12 @@ public class DragLaunch : MonoBehaviour {
 		float launchSpeedZ = (dragEndPosition.y - dragStartPosition.y) / dragDuration;
 		Vector3 launchVlelocity = new Vector3 (launchSpeedX, 0, launchSpeedZ);
 		ball.Launch (launchVlelocity);
-		print ("DragEnd" + dragEndPosition);
+	}
+
+	public void MoveStart(float amount)
+	{
+		if (!ball.inPlay) {
+			ball.transform.Translate(new Vector3(amount, 0, 0));
+		}
 	}
 }
