@@ -9,12 +9,13 @@ public class Ball : MonoBehaviour {
 
 	private AudioSource audioSource;
 	private Rigidbody rigidBody;
+	private Vector3 startPosition;
 
 	void Start () 
 	{
 		rigidBody = GetComponent<Rigidbody> ();
 		rigidBody.useGravity = false;
-//		Launch(launchDirection);
+		startPosition = transform.position;
 	}
 
 	public void Launch (Vector3 velocity)
@@ -25,5 +26,15 @@ public class Ball : MonoBehaviour {
 
 		audioSource = GetComponent<AudioSource> ();
 		audioSource.Play ();
+	}
+
+	public void Reset ()
+	{
+		Debug.Log ("Resetting the ball");
+		inPlay = false;
+		transform.position = startPosition;
+		rigidBody.velocity = Vector3.zero;
+		rigidBody.angularVelocity = Vector3.zero;
+		rigidBody.useGravity = false;
 	}
 }
