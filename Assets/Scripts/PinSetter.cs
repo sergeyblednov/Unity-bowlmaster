@@ -7,7 +7,7 @@ public class PinSetter : MonoBehaviour {
 
 	public Text standingText;
 	public int lastStandingCount = -1;
-	public float distanceToRaise = 0.4f;
+	public GameObject pinSet;
 
 	private Ball ball;
 	private bool ballEnteredBox = false;
@@ -76,9 +76,6 @@ public class PinSetter : MonoBehaviour {
 		if (thing.GetComponent<Pin>()) {
 			Destroy (thing);
 		}
-//		if (thing.GetComponent<Ball>() && strickes < 2) {
-//			ball.Reset();
-//		}
 	}
 
 	#region Pins handling
@@ -86,7 +83,6 @@ public class PinSetter : MonoBehaviour {
 	public void RaisePins ()
 	{
 		foreach (Pin pin in GameObject.FindObjectsOfType<Pin> ()) {
-			pin.distanceToRaise = distanceToRaise;
 			pin.RaiseIfStanding();
 		}
 	}
@@ -100,8 +96,10 @@ public class PinSetter : MonoBehaviour {
 
 	public void RenewPins ()
 	{
-		Debug.Log ("renewing pins");
+		GameObject newPinSet = Instantiate (pinSet);
+		newPinSet.transform.position += new Vector3 (0, 20, 0);
 	}
+
 
 	#endregion
 }

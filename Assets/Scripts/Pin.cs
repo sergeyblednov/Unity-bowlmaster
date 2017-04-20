@@ -5,10 +5,9 @@ using UnityEngine;
 public class Pin : MonoBehaviour {
 
 	public float standingThreshold = 7f;
-	public float distanceToRaise;
+	public float distanceToRaise = 40f;
 
 	private Rigidbody rigidBody;
-//	private bool isRaised = false;
 
 	void Start() 
 	{
@@ -27,7 +26,7 @@ public class Pin : MonoBehaviour {
 	public void RaiseIfStanding ()
 	{
 		if (IsStanding()) {
-//			isRaised = true;
+			print ("rise pin " + name + " distance " + distanceToRaise);
 			rigidBody.useGravity = false;
 			transform.Translate (new Vector3 (0, distanceToRaise, 0), Space.World);
 		}
@@ -35,11 +34,7 @@ public class Pin : MonoBehaviour {
 
 	public void Lower ()
 	{
-//		if (isRaised) {
-			transform.Translate (new Vector3 (0, -distanceToRaise, 0), Space.World);
-			rigidBody.useGravity = true;
-//			isRaised = false;
-//		}
+		transform.Translate (new Vector3 (0, -distanceToRaise, 0), Space.World);
+		rigidBody.useGravity = true;
 	}
-
 }
